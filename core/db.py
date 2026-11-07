@@ -148,8 +148,10 @@ def insert_new(table: Table, rows: list[dict], keys: list[str]) -> int:
     added = 0
     with eng.begin() as c:
         for i in range(0, len(rows), 300):
-            stmt = ins(table).values(rows[i:i + 300]).on_conflict_do_nothing(index_elements=keys)
-            added += c.execute(stmt).rowcount or 0
+            # Postgres 는 여러 행을 넣을 때 rowcount 가 -1 이라, 실제로 들어간 행을 돌려받아 센다
+            stmt = (ins(table).values(rows[i:i + 300]).on_conflict_do_nothing(index_elements=keys)
+                    .returning(table.c[keys[0]]))
+            added += len(c.execute(stmt).all())
     return added
 
 
