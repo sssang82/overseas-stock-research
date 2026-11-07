@@ -1,0 +1,5 @@
+streamlit>=1.40
+pandas>=2.2
+requests>=2.32
+yfinance>=0.2.50
+youtube-transcript-api>=1.2
