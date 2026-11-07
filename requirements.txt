@@ -1,5 +1,7 @@
 streamlit>=1.40
 pandas>=2.2
 requests>=2.32
+sqlalchemy>=2.0
+psycopg[binary]>=3.2
 yfinance>=0.2.50
 youtube-transcript-api>=1.2
